@@ -9,3 +9,9 @@ def create_to_do_list_use_case(data):
         task_data['to_do_list'] = to_do_list
         Task.objects.create(**task_data)
     return to_do_list
+
+
+def update_to_do_list_use_case(data):
+    data = data.copy()
+    ToDoList.objects.filter(id=data['id']).update(**data)
+    return ToDoList.objects.get(id=data['id'])

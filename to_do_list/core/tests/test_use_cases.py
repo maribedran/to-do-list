@@ -1,7 +1,8 @@
 from django.test import TestCase
+from model_mommy import mommy
 
 from core.models import Task, ToDoList
-from core.use_cases import create_to_do_list_use_case
+from core.use_cases import create_to_do_list_use_case, update_to_do_list_use_case
 
 
 class CreateToDoListUseCaseTest(TestCase):
@@ -38,3 +39,18 @@ class CreateToDoListUseCaseTest(TestCase):
         self.assertEqual(1, to_do_list.tasks.count())
         new_task = to_do_list.tasks.first()
         self.assertEqual(data['tasks'][0]['description'], new_task.description)
+
+
+class UpdateToDoListUseCaseTest(TestCase):
+
+    def test_update_empty_to_do_list(self):
+        list = mommy.make(ToDoList)
+        data = {
+            'id': list.id,
+            'name': 'My empty list',
+        }
+
+        updated_list = update_to_do_list_use_case(data)
+
+        self.assertEqual(list, updated_list)
+        self.assertEqual(data['name'], updated_list.name)
