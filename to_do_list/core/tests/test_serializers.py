@@ -39,6 +39,7 @@ class ToDoListSerializerTest(TestCase):
         data = serializer.data
 
         expected_data = {
+            'id': to_do_list.id,
             'name': to_do_list.name,
             'created_at': to_do_list.created_at.strftime(DATETIME_FORMAT),
             'tasks': [
@@ -46,11 +47,12 @@ class ToDoListSerializerTest(TestCase):
                     'id': task.id,
                     'description': task.description,
                     'created_at': task.created_at.strftime(DATETIME_FORMAT),
-                    'due_at': '',
-                    'done_at': '',
+                    'due_at': None,
+                    'done_at': None,
                 },
             ],
         }
+        self.assertEqual(expected_data, data)
 
     @patch('core.serializers.create_to_do_list_use_case')
     def test_serializer_calls_create_to_do_list_use_case_on_create(self, mocked_use_case):
