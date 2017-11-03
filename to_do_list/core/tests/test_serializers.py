@@ -62,3 +62,15 @@ class ToDoListSerializerTest(TestCase):
         self.assertTrue(serializer.is_valid())
         serializer.save()
         mocked_use_case.assert_called_once_with(data)
+
+    @patch('core.serializers.update_to_do_list_use_case')
+    def test_serializer_calls_update_to_do_list_use_case_on_update(self, mocked_use_case):
+        data = {
+            'name': 'Things I have to do',
+            'tasks': [{'description': 'Do that'}]
+        }
+        instance = mommy.make(ToDoList)
+        serializer = ToDoListSerializer(data=data, instance=instance)
+        self.assertTrue(serializer.is_valid())
+        serializer.save()
+        mocked_use_case.assert_called_once_with(instance, data)
