@@ -76,3 +76,27 @@ class UpdateToDoListUseCaseTest(TestCase):
         self.assertEqual(1, to_do_list.tasks.count())
         new_task = to_do_list.tasks.first()
         self.assertEqual(data['tasks'][0]['description'], new_task.description)
+
+    def test_update_to_do_list_updating_track(self):
+        list = mommy.make(ToDoList)
+        task = mommy.make(Task, to_do_list=list)
+        data = {
+            'id': list.id,
+            'name': 'My tasks list',
+            'tasks': [
+                {
+                    'id': task.id,
+                    'description': 'Do something!'
+                }
+            ]
+        }
+        tasks_count = Task.objects.count()
+
+        to_do_list = update_to_do_list_use_case(data)
+
+        self.assertEqual(data['name'], to_do_list.name)
+
+        self.assertEqual(tasks_count, Task.objects.count())
+        self.assertEqual(1, to_do_list.tasks.count())
+        new_task = to_do_list.tasks.first()
+        self.assertEqual(data['tasks'][0]['description'], new_task.description)
