@@ -10,7 +10,7 @@ Having a Python3 virtualenv set up, run
 
     (to-do-list) $ python manage.py migrate
 
-## Migrate database
+## Run server
 
     (to-do-list) $ python manage.py runserver
 
