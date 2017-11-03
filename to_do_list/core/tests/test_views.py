@@ -20,6 +20,7 @@ class ToDoListViewSetTest(TestCase):
         self.client = Client()
         self.post_data = {
             'name': 'My new life project',
+            'tasks': []
         }
 
     def test_list_returns_200(self):

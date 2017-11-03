@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.test import TestCase
 from django.utils import timezone
 from model_mommy import mommy
@@ -49,3 +51,14 @@ class ToDoListSerializerTest(TestCase):
                 },
             ],
         }
+
+    @patch('core.serializers.create_to_do_list_use_case')
+    def test_serializer_calls_create_to_do_list_use_case_on_create(self, mocked_use_case):
+        data = {
+            'name': 'Things I have to do',
+            'tasks': [{'description': 'Do that'}]
+        }
+        serializer = ToDoListSerializer(data=data)
+        self.assertTrue(serializer.is_valid())
+        serializer.save()
+        mocked_use_case.assert_called_once_with(data)
