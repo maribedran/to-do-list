@@ -50,7 +50,7 @@ class UpdateToDoListUseCaseTest(TestCase):
             'name': 'My empty list',
         }
 
-        updated_list = update_to_do_list_use_case(data)
+        updated_list = update_to_do_list_use_case(list, data)
 
         self.assertEqual(list, updated_list)
         self.assertEqual(data['name'], updated_list.name)
@@ -68,7 +68,7 @@ class UpdateToDoListUseCaseTest(TestCase):
         }
         tasks_count = Task.objects.count()
 
-        to_do_list = update_to_do_list_use_case(data)
+        to_do_list = update_to_do_list_use_case(list, data)
 
         self.assertEqual(data['name'], to_do_list.name)
 
@@ -92,7 +92,7 @@ class UpdateToDoListUseCaseTest(TestCase):
         }
         tasks_count = Task.objects.count()
 
-        to_do_list = update_to_do_list_use_case(data)
+        to_do_list = update_to_do_list_use_case(list, data)
 
         self.assertEqual(data['name'], to_do_list.name)
 
@@ -119,7 +119,7 @@ class UpdateToDoListUseCaseTest(TestCase):
         }
         tasks_count = Task.objects.count()
 
-        to_do_list = update_to_do_list_use_case(data)
+        to_do_list = update_to_do_list_use_case(list, data)
 
         self.assertEqual(data['name'], to_do_list.name)
 
@@ -140,7 +140,7 @@ class UpdateToDoListUseCaseTest(TestCase):
         }
         tasks_count = Task.objects.count()
 
-        to_do_list = update_to_do_list_use_case(data)
+        to_do_list = update_to_do_list_use_case(list, data)
 
         self.assertEqual(data['name'], to_do_list.name)
 
@@ -166,7 +166,7 @@ class UpdateToDoListUseCaseTest(TestCase):
         }
         tasks_count = Task.objects.count()
 
-        to_do_list = update_to_do_list_use_case(data)
+        to_do_list = update_to_do_list_use_case(list, data)
 
         self.assertEqual(data['name'], to_do_list.name)
 

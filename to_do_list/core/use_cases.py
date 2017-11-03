@@ -11,11 +11,11 @@ def create_to_do_list_use_case(data):
     return to_do_list
 
 
-def update_to_do_list_use_case(data):
+def update_to_do_list_use_case(instance, data):
     data = data.copy()
     tasks_data = data.pop('tasks', [])
-    ToDoList.objects.filter(id=data['id']).update(**data)
-    to_do_list = ToDoList.objects.get(id=data['id'])
+    ToDoList.objects.filter(id=instance.id).update(**data)
+    to_do_list = ToDoList.objects.get(id=instance.id)
 
     saved_tasks = set(to_do_list.tasks.values_list('id', flat=True))
     updated_tasks = set(
