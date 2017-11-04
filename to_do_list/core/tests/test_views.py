@@ -1,15 +1,18 @@
 import json
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.urls import reverse
 from model_mommy import mommy
 
 from core.models import Task, ToDoList
 from core.serializers import TaskSerializer, ToDoListSerializer
+from helpers.test import LoginRequiredTestCaseMixin
 
 
-class ToDoListViewSetTest(TestCase):
+class ToDoListViewSetTest(TestCase, LoginRequiredTestCaseMixin):
 
     def setUp(self):
+        self.set_up_client()
+
         self.to_do_list = mommy.make(ToDoList)
         self.list_url = reverse('to_do_list-list')
         self.detail_url = reverse(
@@ -17,7 +20,6 @@ class ToDoListViewSetTest(TestCase):
             args=[self.to_do_list.id]
         )
         self.data = ToDoListSerializer(instance=self.to_do_list).data
-        self.client = Client()
         self.post_data = {
             'name': 'My new life project',
             'tasks': []
