@@ -8,7 +8,7 @@ from helpers.test import LoginRequiredTestCaseMixin, CRUDTestCaseMixin
 class ToDoListViewSetTest(TestCase, LoginRequiredTestCaseMixin, CRUDTestCaseMixin):
     model_class = ToDoList
     serializer_class = ToDoListSerializer
-    url_base_name = 'to_do_list'
+    url_base_name = 'core:to_do_list'
     post_data = {
         'name': 'My new life project',
         'tasks': []
