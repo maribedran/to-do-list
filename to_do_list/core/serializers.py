@@ -1,4 +1,3 @@
-from rest_auth.serializers import PasswordResetSerializer as PwdResetSerializer
 from rest_framework import serializers
 
 from core.models import Task, ToDoList
@@ -31,9 +30,3 @@ class ToDoListSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         return update_to_do_list_use_case(instance, validated_data)
 
-
-class PasswordResetSerializer(PwdResetSerializer):
-
-    def get_email_options(self):
-        domain = self.context['request'].get_host()
-        return {'domain_override': domain}
