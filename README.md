@@ -30,11 +30,15 @@ and run django's `loaddata` command.
 Make sure the primary key you use on the fixture is the same one set on the
 'SITE_ID' attribute on your settings file.
 
-`settings_dev.py`
+`settings.py`
 
     SITE_ID = 1
 
-`settings_prod.py`
+`settings_dev.py`
 
     SITE_ID = 2
+
+`settings_prod.py`
+
+    SITE_ID = 3
 
