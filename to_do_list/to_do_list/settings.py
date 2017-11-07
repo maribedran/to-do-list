@@ -47,8 +47,6 @@ INSTALLED_APPS = [
     'core',
 ]
 
-SITE_ID = 1
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -135,6 +133,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
+# Django Sites Framework
+
+SITE_ID = 1
 
 # SMTP
 
