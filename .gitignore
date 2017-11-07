@@ -6,4 +6,4 @@ db.sqlite3
 /staticfiles/*
 /mediafiles/*
 __pycache__/
-
+.fixtures.json
