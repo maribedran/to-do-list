@@ -8,3 +8,11 @@ db.sqlite3
 __pycache__/
 fixtures.json
 settings_dev.py
+
+logs/*
+!.gitkeep
+node_modules/
+tmp
+.idea
+.DS_Store
+bower_components/
