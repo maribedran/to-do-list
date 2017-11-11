@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.test import TestCase
 from django.utils import timezone
 from freezegun import freeze_time
@@ -24,6 +26,21 @@ class ToDoListModelTest(TestCase):
         self.assertEqual('Shopping List', saved_instance.name)
         self.assertEqual(now, saved_instance.created_at)
 
+    def test_earlyest_task_property(self):
+        now = timezone.now()
+        tomorrow = now + timedelta(days=1)
+        to_do_list = mommy.make(ToDoList)
+        first_task = mommy.make(
+            Task,
+            to_do_list=to_do_list,
+            due_at=now
+        )
+        first_task = mommy.make(
+            Task,
+            to_do_list=to_do_list,
+            due_at=tomorrow
+        )
+        self.assertEqual(now, to_do_list.earlyest_task)
 
 class TaskModelTest(TestCase):
 

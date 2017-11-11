@@ -14,6 +14,10 @@ class ToDoList(models.Model):
     class Meta:
         verbose_name = _('To-Do List')
 
+    @property
+    def earlyest_task(self):
+        return self.tasks.values_list('due_at', flat=True).earliest('due_at')
+
 
 class Task(models.Model):
     description = models.CharField(_('Description'), max_length=255)
