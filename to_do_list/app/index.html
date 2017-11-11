@@ -1,0 +1,36 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" ng-app="toDoListApp">
+  <head>
+    <meta charset="utf-8">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'app.css' %}" />
+    <link rel="stylesheet" href="{% static 'app.animations.css' %}" />
+
+    <script src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
+    <script src="{% static 'bower_components/angular/angular.js' %}"></script>
+    <script src="{% static 'bower_components/angular-animate/angular-animate.js' %}"></script>
+    <script src="{% static 'bower_components/angular-resource/angular-resource.js' %}"></script>
+    <script src="{% static 'bower_components/angular-route/angular-route.js' %}"></script>
+    <script src="{% static 'app.module.js' %}"></script>
+    <script src="{% static 'app.config.js' %}"></script>
+    <script src="{% static 'app.animations.js' %}"></script>
+    <script src="{% static 'core/core.module.js' %}"></script>
+    <script src="{% static 'core/checkmark/checkmark.filter.js' %}"></script>
+    <script src="{% static 'core/to-do-list/to-do-list.module.js' %}"></script>
+    <script src="{% static 'core/to-do-list/to-do-list.service.js' %}"></script>
+    <script src="{% static 'to-do-list-list/to-do-list-list.module.js' %}"></script>
+    <script src="{% static 'to-do-list-list/to-do-list-list.component.js' %}"></script>
+    <script src="{% static 'to-do-list-detail/to-do-list-detail.module.js' %}"></script>
+    <script src="{% static 'to-do-list-detail/to-do-list-detail.component.js' %}"></script>
+  </head>
+  <body>
+
+    <div class="view-container">
+      <div ng-view class="view-frame"></div>
+    </div>
+
+  </body>
+</html>

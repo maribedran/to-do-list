@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      <p>
+        Search:
+        <input ng-model="$ctrl.query" />
+      </p>
+
+      <p>
+        Sort by:
+        <select ng-model="$ctrl.orderProp">
+          <option value="name">Alphabetical</option>
+          <option value="age">Newest</option>
+        </select>
+      </p>
+
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+
+      <div class="card col-md-4"
+           ng-repeat="toDoList in $ctrl.toDoLists | filter:$ctrl.query | orderBy:$ctrl.orderProp">
+        <div class="card-body">
+          <h4 class="card-title"><a href="#!/to-do-lists/{{toDoList.id}}">{{toDoList.name}}</a></h4>
+          <p class="card-text"></p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"
+              ng-repeat="task in toDoList.tasks">
+            {{task.description}}
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
