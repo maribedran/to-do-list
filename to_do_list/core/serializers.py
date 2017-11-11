@@ -20,8 +20,8 @@ class ToDoListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ToDoList
-        fields = ('id', 'name', 'tasks', 'created_at',)
-        read_only_fields = ('id', 'created_at',)
+        fields = ('id', 'name', 'tasks', 'created_at', 'earlyest_task',)
+        read_only_fields = ('id', 'created_at', 'earlyest_task',)
         depth = 2
 
     def create(self, validated_data):

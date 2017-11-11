@@ -42,6 +42,7 @@ class ToDoListSerializerTest(TestCase):
             'id': to_do_list.id,
             'name': to_do_list.name,
             'created_at': to_do_list.created_at.strftime(DATETIME_FORMAT),
+            'earlyest_task': None,
             'tasks': [
                 {
                     'id': task.id,
