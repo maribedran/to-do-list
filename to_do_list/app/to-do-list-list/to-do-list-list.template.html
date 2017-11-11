@@ -1,30 +1,37 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2">
-      <!--Sidebar content-->
-
-      <p>
-        Search:
-        <input ng-model="$ctrl.query" />
-      </p>
-
-      <p>
-        Sort by:
-        <select ng-model="$ctrl.orderProp">
-          <option value="name">Alphabetical</option>
-          <option value="age">Newest</option>
-        </select>
-      </p>
-
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand">To-Do List</a>
     </div>
-    <div class="col-md-10">
-      <!--Body content-->
+    <div class="collapse navbar-collapse">
+      <form class="navbar-form navbar-right">
+        <input class="form-control mr-sm-2"
+               type="search"
+               placeholder="Search"
+               aria-label="Search"
+               ng-model="$ctrl.query">
+          <select class="form-control mr-sm-2"
+                  ng-model="$ctrl.orderProp">
+            <option value="name">Alphabetical</option>
+            <option value="created_at">Creation</option>
+            <option value="earlyest_task">Earlyest Task</option>
+          </select>
+      </form>
+    </div>
+  </div>
+</nav>
 
-      <div class="card col-md-4"
-           ng-repeat="toDoList in $ctrl.toDoLists | filter:$ctrl.query | orderBy:$ctrl.orderProp">
-        <div class="card-body">
-          <h4 class="card-title"><a href="#!/to-do-lists/{{toDoList.id}}">{{toDoList.name}}</a></h4>
-          <p class="card-text"></p>
+<div class="container mt-60">
+  <div class="row">
+    <div class="col-md-4"
+         ng-repeat="toDoList in $ctrl.toDoLists | filter:$ctrl.query | orderBy:$ctrl.orderProp">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <a href="#!/to-do-lists/{{toDoList.id}}">{{toDoList.name}}</a>
+          </h3>
+        </div>
+        <div class="panel-body">
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item"
@@ -33,7 +40,6 @@
           </li>
         </ul>
       </div>
-
     </div>
   </div>
 </div>

@@ -8,7 +8,7 @@ angular.
     controller: ['ToDoList',
       function ToDoListListController(ToDoList) {
         this.toDoLists = ToDoList.query({});
-        this.orderProp = 'created_at';
+        this.orderProp = 'earlyest_task';
       }
     ]
   });
