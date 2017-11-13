@@ -6,6 +6,5 @@ angular.module('toDoListApp', [
   'ngRoute',
   'ui.bootstrap',
   'core',
-  'toDoListDetail',
   'toDoListList'
 ]);
