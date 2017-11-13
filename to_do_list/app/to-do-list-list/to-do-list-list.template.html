@@ -118,17 +118,21 @@
         </div>
         <div class="panel-body">
           <p ng-if="toDoList.earlyest_task"
-             class="text-right">First due date at {{toDoList.earlyest_task}}</p>
+             class="text-right">First due date at {{toDoList.earlyest_task | date: 'dd/MM/yyyy' }}</p>
           <p ng-if="!toDoList.earlyest_task"
              class="text-right">This List has no due dates</p>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item"
               ng-repeat="task in toDoList.tasks">
-            {{task.description}}
+            <p>
+              <span class="pull-left">{{task.description}}</span>
+              <span class="pull-right"><small>{{task.due_at | date: 'dd/MM/yyyy' }}</small></span>
+            </p>
           </li>
         </ul>
       </div>
     </div>
   </div>
+
 </div>
