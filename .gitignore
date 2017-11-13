@@ -8,6 +8,7 @@ db.sqlite3
 __pycache__/
 fixtures.json
 settings_dev.py
+venv
 
 logs/*
 !.gitkeep
