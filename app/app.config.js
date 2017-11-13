@@ -18,6 +18,7 @@ angular.
       $routeProvider.
         when('/to-do-lists', {
           template: '<to-do-list-list></to-do-list-list>'
-        })
+        }).
+        otherwise('/to-do-lists');
     }
   ]);
