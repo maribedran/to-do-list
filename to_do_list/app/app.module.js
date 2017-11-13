@@ -4,6 +4,7 @@
 angular.module('toDoListApp', [
   'ngAnimate',
   'ngRoute',
+  'ui.bootstrap',
   'core',
   'toDoListDetail',
   'toDoListList'
