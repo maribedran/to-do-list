@@ -9,6 +9,11 @@ angular.
           method: 'GET',
           params: {},
           isArray: true
+        },
+        post: {
+          method: 'POST',
+          params: {},
+          isArray: false
         }
       });
     }
