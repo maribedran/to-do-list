@@ -5,6 +5,9 @@
   "description": "A To-Do List Organizer",
   "repository": "https://github.com/maribedran/to-do-list-app",
   "license": "MIT",
+  "dependencies": {
+    "bower": "latest"
+  },
   "devDependencies": {
     "bower": "^1.7.7",
     "http-server": "^0.9.0",
