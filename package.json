@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "description": "A To-Do List Organizer",
-  "repository": "https://github.com/maribedran/to-do-list-app",
+  "repository": "https://github.com/maribedran/to-do-list",
   "license": "MIT",
   "dependencies": {
     "bower": "latest"
