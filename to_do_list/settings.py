@@ -25,7 +25,9 @@ SECRET_KEY = 'fn_h!+3a=tohxnb0_iaj3yjn8#apz&f9cd(k$gy945leo8d0sb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'lab-codes-to-do-list.herokuapp.com',
+]
 
 
 # Application definition
