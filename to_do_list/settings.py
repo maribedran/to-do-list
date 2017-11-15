@@ -10,25 +10,28 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
-import os
+from decouple import config
+from unipath import Path
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fn_h!+3a=tohxnb0_iaj3yjn8#apz&f9cd(k$gy945leo8d0sb'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = [
-    'lab-codes-to-do-list.herokuapp.com',
-    'localhost',
-]
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS',
+    default=['localhost'],
+    cast=lambda v: [s.strip() for s in v.split(',')]
+)
 
 
 # Application definition
@@ -69,8 +72,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'core/templates'),
-            os.path.join(BASE_DIR, 'app')
+            BASE_DIR.child('core').child('templates'),
+            BASE_DIR.child('app')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -93,10 +96,10 @@ WSGI_APPLICATION = 'to_do_list.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'to_do_list',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
         'PORT': '',
     }
 }
@@ -137,11 +140,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR.child('staticfiles')
 
 STATIC_URL = '/app/'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "app"),]
+STATICFILES_DIRS = [BASE_DIR.child("app"),]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -160,11 +163,10 @@ SITE_ID = 1
 
 # SMTP
 
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'example@gmail.com'
-SERVER_EMAIL = 'example@gmail.com'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'example@gmail.com'
-EMAIL_HOST_PASSWORD = 'password'
-
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='mail@localhost.com')
+SERVER_EMAIL=config('SERVER_EMAIL', default='mail@localhost.com')
+EMAIL_HOST = config('EMAIL_HOST', default='localhost')
+EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
