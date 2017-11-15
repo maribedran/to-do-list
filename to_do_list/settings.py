@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 from decouple import config
+from dj_database_url import parse as dj_url
 from unipath import Path
 
 
@@ -94,14 +95,11 @@ WSGI_APPLICATION = 'to_do_list.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': '',
-    }
+    'default': config(
+        'DATABASE_URL',
+        default='sqlite:///{path}/db.sqlite3'.format(path=BASE_DIR),
+        cast=dj_url
+    )
 }
 
 # Password validation
