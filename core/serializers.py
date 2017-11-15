@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from core.models import Task, ToDoList
@@ -17,10 +18,11 @@ class TaskSerializer(serializers.ModelSerializer):
 
 class ToDoListSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many=True)
+    assignee = serializers.PrimaryKeyRelatedField(queryset=get_user_model().objects.all())
 
     class Meta:
         model = ToDoList
-        fields = ('id', 'name', 'tasks', 'created_at', 'earlyest_task',)
+        fields = ('id', 'name', 'assignee', 'tasks', 'created_at', 'earlyest_task',)
         read_only_fields = ('id', 'created_at', 'earlyest_task',)
         depth = 2
 

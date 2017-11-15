@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone
 from freezegun import freeze_time
@@ -14,7 +15,8 @@ class ToDoListModelTest(TestCase):
     def test_save_persists_all_fields(self):
         now = timezone.now()
         objects_count = ToDoList.objects.count()
-        instance = ToDoList(name='Shopping List')
+        user = mommy.make(get_user_model())
+        instance = ToDoList(name='Shopping List', assignee=user)
 
         self.assertIsNone(instance.created_at)
 
@@ -25,6 +27,7 @@ class ToDoListModelTest(TestCase):
         self.assertTrue(saved_instance.id)
         self.assertEqual('Shopping List', saved_instance.name)
         self.assertEqual(now, saved_instance.created_at)
+        self.assertEqual(user, saved_instance.assignee)
 
     def test_earlyest_task_property(self):
         now = timezone.now()
@@ -41,6 +44,10 @@ class ToDoListModelTest(TestCase):
             due_at=tomorrow
         )
         self.assertEqual(now, to_do_list.earlyest_task)
+
+    def test_to_do_list_has_assignee_user(self):
+        to_do_list = mommy.make(ToDoList)
+        self.assertIsInstance(to_do_list.assignee, get_user_model())
 
 class TaskModelTest(TestCase):
 

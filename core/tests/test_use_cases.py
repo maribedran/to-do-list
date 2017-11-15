@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from model_mommy import mommy
 
@@ -7,9 +8,13 @@ from core.use_cases import create_to_do_list_use_case, update_to_do_list_use_cas
 
 class CreateToDoListUseCaseTest(TestCase):
 
+    def setUp(self):
+        self.user = mommy.make(get_user_model())
+
     def test_create_empty_to_do_list(self):
         data = {
             'name': 'My empty list',
+            'assignee': self.user,
         }
         count = ToDoList.objects.count()
 
@@ -21,6 +26,7 @@ class CreateToDoListUseCaseTest(TestCase):
     def test_create_to_do_list_with_tasks(self):
         data = {
             'name': 'My tasks list',
+            'assignee': self.user,
             'tasks': [
                 {
                     'description': 'Do something!'
