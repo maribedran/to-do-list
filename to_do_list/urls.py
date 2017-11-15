@@ -7,6 +7,7 @@ urlpatterns = [
     url('^$', TemplateView.as_view(template_name='index.html')),
     url('^api/', include('core.urls', namespace='core')),
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^rest-auth/', include('rest_auth.urls', namespace='rest_auth')),
     url(r'^rest-auth/registration/',
         include('rest_auth.registration.urls', namespace='registration')),
