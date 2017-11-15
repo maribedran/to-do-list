@@ -7,35 +7,44 @@ angular.
     templateUrl: 'app/to-do-list-list/to-do-list-list.template.html',
     controller: ['ToDoList', '$scope',
       function ToDoListListController(ToDoList, $scope) {
-        this.orderProp = 'earlyest_task';
+        self = this;
+        self.orderProp = 'earlyest_task';
 
-        this.updateList = function () {
-          this.toDoLists = ToDoList.query({});
+        // Load Page
+        updateList();
+        setEmptyList();
+
+        // Resource service
+        function updateList () {
+          self.toDoLists = ToDoList.query({});
         }
 
         // Create To-Do List
-        this.newList = {
-          tasks: []
-        };
+        function setEmptyList () {
+          self.newList = {
+            tasks: []
+          };
+        }
 
-        this.addTask = function() {
-          this.newList.tasks.push({
+        self.addTask = function() {
+          self.newList.tasks.push({
             description: null,
             due_at: null
           })
         }
 
-        this.create = function () {
-          ToDoList.post(this.newList).$promise
+        self.create = function () {
+          ToDoList.post(self.newList).$promise
           .then(function(response){
             $scope.createFormColapsed = true;
             createAlert('success', 'To-Do List successfuly created!');
-            this.updateList();
-            setTimeout(this.closeAlert.bind(this), 1000);
-          }.bind(this))
+            setTimeout(self.closeAlert, 1000);
+            updateList();
+            setEmptyList();
+          })
           .catch(function(reason) {
             createAlert('danger', formatErrorMsg(reason.data))
-          }.bind(this))
+          })
         }
 
         // Feedback
@@ -56,9 +65,6 @@ angular.
           })
           return messages.join(' ')
         }
-
-        // Load Page
-        this.updateList();
 
         // ui-bootstrap
 
