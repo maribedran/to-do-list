@@ -18,15 +18,17 @@ class TaskSerializer(serializers.ModelSerializer):
 
 class ToDoListSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many=True)
-    assignee = serializers.PrimaryKeyRelatedField(queryset=get_user_model().objects.all())
+    assignee = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = ToDoList
         fields = ('id', 'name', 'assignee', 'tasks', 'created_at', 'earlyest_task',)
-        read_only_fields = ('id', 'created_at', 'earlyest_task',)
+        read_only_fields = ('id', 'created_at', 'earlyest_task', 'assignee',)
         depth = 2
 
     def create(self, validated_data):
+        user = self.context['request'].user
+        validated_data['assignee'] = user
         return create_to_do_list_use_case(validated_data)
 
     def update(self, instance, validated_data):

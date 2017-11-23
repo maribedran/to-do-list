@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from django.contrib.auth import get_user_model
 from django.test import TestCase
@@ -61,13 +61,13 @@ class ToDoListSerializerTest(TestCase):
         self.assertEqual(expected_data, data)
 
     @patch('core.serializers.create_to_do_list_use_case')
-    def test_serializer_calls_create_to_do_list_use_case_on_create(self, mocked_use_case):
+    def test_serializer_calls_create_to_do_list_use_case_on_create_with_logged_user(self, mocked_use_case):
         data = {
             'name': 'Things I have to do',
-            'assignee': self.user.id,
             'tasks': [{'description': 'Do that'}]
         }
-        serializer = ToDoListSerializer(data=data)
+        request = Mock(user=self.user)
+        serializer = ToDoListSerializer(data=data, context={'request': request})
         self.assertTrue(serializer.is_valid())
         serializer.save()
         data.update({'assignee': self.user})
@@ -77,12 +77,11 @@ class ToDoListSerializerTest(TestCase):
     def test_serializer_calls_update_to_do_list_use_case_on_update(self, mocked_use_case):
         data = {
             'name': 'Things I have to do',
-            'assignee': self.user.id,
             'tasks': [{'description': 'Do that'}]
         }
+        request = Mock(user=self.user)
         instance = mommy.make(ToDoList)
-        serializer = ToDoListSerializer(data=data, instance=instance)
+        serializer = ToDoListSerializer(data=data, instance=instance, context={'request': request})
         self.assertTrue(serializer.is_valid())
         serializer.save()
-        data.update({'assignee': self.user})
         mocked_use_case.assert_called_once_with(instance, data)
